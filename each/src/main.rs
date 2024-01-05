@@ -1,7 +1,7 @@
 mod auth;
-mod comms;
 mod executor;
 mod provoker;
+mod mesh;
 
 use crate::provoker::rpc::{ProvokerServer, ProvokerService};
 use tokio;

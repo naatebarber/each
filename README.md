@@ -18,7 +18,7 @@ Each will expose a gRPC client, capable of receiving work from an outside source
 
  - `main.rs` is main.
  - `auth` will handle GPG cross-node validation and `confball` interpretation.
- - `comms` will handle ZMQ cross-node communication
+ - `mesh` will handle ZMQ cross-node communication
  - `executor` will handle job execution per-node. 
  - `provoker` will expose the gRPC server and accept jobs.
 
