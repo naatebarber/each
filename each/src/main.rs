@@ -1,8 +1,21 @@
-mod provoker;
-mod executor;
-mod comms;
 mod auth;
+mod comms;
+mod executor;
+mod provoker;
 
-fn main() {
-    println!("Hello, world!");
+use crate::provoker::rpc::{ProvokerServer, ProvokerService};
+use tokio;
+use tonic::transport::Server;
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let addr = "[::1]:50051".parse()?;
+    let provoker_rpc = ProvokerService::default();
+
+    Server::builder()
+        .add_service(ProvokerServer::new(provoker_rpc))
+        .serve(addr)
+        .await?;
+
+    Ok(())
 }

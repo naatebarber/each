@@ -1,0 +1,16 @@
+syntax = "proto3";
+package each_provoker;
+
+service Provoker {
+  rpc Provoke (TaskRequest) returns (TaskResponse);
+}
+
+message TaskRequest {
+  string executor = 1;
+  string command = 2;
+}
+
+message TaskResponse {
+  bool success = 1;
+  string output = 2;
+}
