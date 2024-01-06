@@ -1,2 +1,2 @@
-mod controller;
 mod config;
+mod controller;

@@ -2,7 +2,7 @@ use std::error::Error;
 
 pub use each_provoker::provoker_server::{Provoker, ProvokerServer};
 use each_provoker::{TaskRequest, TaskResponse};
-use tonic::{Request, Response, Status};
+use tonic::{transport::Server, Request, Response, Status};
 
 use crate::executor::{executor::Executor, shell::ShellExecutor};
 
@@ -22,6 +22,19 @@ impl ProvokerService {
         let output = executor.exec(command)?;
 
         Ok(output)
+    }
+
+    pub async fn start(rpc_port: u32) {
+        let addr = format!("[::1]:{}", rpc_port)
+            .parse()
+            .expect("Provoker Service Error - Improper address format.");
+        let provoker_rpc = ProvokerService::default();
+
+        Server::builder()
+            .add_service(ProvokerServer::new(provoker_rpc))
+            .serve(addr)
+            .await
+            .expect(&format!("Failed to start provoker service at {}", rpc_port))
     }
 }
 

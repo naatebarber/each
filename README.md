@@ -31,3 +31,13 @@ Each will expose a gRPC client, capable of receiving work from an outside source
 ### Initial Testing
 
  - Send a shell task - `sleep 100` to a bunch of nodes and ensure they distribute.
+
+## Jan 6 2024:
+
+Forget all that, RPC and tokio is overkill for V1 of this. I need to focus on the network architecture using just ZMQ. The clients should still validate each other with GPG, however, I should allow ZMQ to be the interface for job assignment as well (instead of gRPC).
+
+Steps of focus:
+
+ - Nodes can talk to each other via zmq.
+ - There is no master node
+ - Send an executor command to a node using a ZMQ client.
